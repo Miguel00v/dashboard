@@ -7,7 +7,10 @@ const sql = postgres(process.env.POSTGRES_URL!, {
 async function listInvoices() {
   try {
     const data = await sql`
-      SELECT * FROM invoices LIMIT 5;
+      SELECT invoices.amount, customers.name
+      FROM invoices
+      JOIN customers ON invoices.customer_id = customers.id
+      WHERE invoices.amount = 666;
     `;
     return data;
   } catch (error) {
