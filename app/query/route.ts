@@ -32,7 +32,7 @@ async function testConnection() {
 
 export async function GET() {
   try {
-    const testResult = await testConnection();
+    const testResult = await listInvoices();
     return Response.json(testResult);
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
