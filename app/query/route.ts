@@ -19,10 +19,21 @@ async function listInvoices() {
   }
 }
 
+async function testConnection() {
+  try {
+    const result = await sql`SELECT 1+1 AS result`;
+    console.log('Conexão bem-sucedida:', result);
+    return { success: true, message: 'Conexão bem-sucedida' };
+  } catch (error) {
+    console.error('Erro na conexão:', error);
+    return { success: false, error: error.message };
+  }
+}
+
 export async function GET() {
   try {
-    const data = await listInvoices();
-    return Response.json(data);
+    const testResult = await testConnection();
+    return Response.json(testResult);
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
